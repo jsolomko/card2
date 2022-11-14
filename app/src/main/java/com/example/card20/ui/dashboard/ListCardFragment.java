@@ -42,6 +42,13 @@ public class ListCardFragment extends Fragment {
         recyclerView = root.findViewById(R.id.rv_dashboard);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
+        CardAdapter.OnClickBtnListener onClickBtnListener = new CardAdapter.OnClickBtnListener() {
+            @Override
+            public void onClick(Card card, int position) {
+               listCardViewModel.deleteCard(card);
+            }
+        };
+
         CardAdapter.OnClickCardListener onClickCardListener = new CardAdapter.OnClickCardListener() {
             @Override
             public void onClick(Card card, int position) {
@@ -63,8 +70,9 @@ public class ListCardFragment extends Fragment {
                         .addToBackStack(null).commit();
             }
         };
-        CardAdapter cardAdapter = new CardAdapter(new CardAdapter.CardDiff(), onClickCardListener);
+        CardAdapter cardAdapter = new CardAdapter(new CardAdapter.CardDiff(), onClickCardListener, onClickBtnListener);
         recyclerView.setAdapter(cardAdapter);
+
         listCardViewModel.getListRepo().observe(getViewLifecycleOwner(), new Observer<List<Card>>() {
             @Override
             public void onChanged(List<Card> cards) {
@@ -80,25 +88,4 @@ public class ListCardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-    public void showDialog() {
-        Bundle bundle = new Bundle();
-
-
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        CustomDialogFragment newFragment = new CustomDialogFragment();
-
-        newFragment.setArguments(bundle);
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        // For a little polish, specify a transition animation
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        // To make it fullscreen, use the 'content' root view as the container
-        // for the fragment, which is always the root view for the activity
-        transaction.add(android.R.id.content, newFragment)
-                .addToBackStack(null).commit();
-
-
-    }
-
 }

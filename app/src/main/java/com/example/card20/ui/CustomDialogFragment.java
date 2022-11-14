@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +48,16 @@ public class CustomDialogFragment extends Fragment {
             Card card = bundle.getParcelable(Card.class.getSimpleName());
 
             imageView = view.findViewById(R.id.imageView2);
+
             imageView.setImageURI(Uri.parse(card.getCard_front()));
+
+            Handler handler = new Handler();
+
+
             imageView.setOnClickListener(view1 -> {
                 getActivity().getSupportFragmentManager().beginTransaction().remove(CustomDialogFragment.this).commit();
             });
         }
-
 
 
     }

@@ -35,7 +35,4 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
-    public void edit(View view) {
-        Toast.makeText(getApplicationContext(), "GFSDSDF", Toast.LENGTH_SHORT).show();
-    }
 }

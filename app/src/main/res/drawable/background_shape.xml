@@ -3,10 +3,10 @@
     <solid android:color="#FFFFFF"/>
     <stroke
         android:width="3dp"
-        android:color="#0FECFF" />
+        android:color="#b28631" />
     <gradient
-        android:startColor="#ffffffff"
-        android:endColor="#110000FF"
+        android:startColor="#575958"
+        android:endColor="#7C558A82"
         android:angle="90"/>
 
     <padding

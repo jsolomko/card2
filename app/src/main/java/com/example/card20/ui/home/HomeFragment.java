@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment {
     EditText cardBrent, cardNumber;
     Bitmap resizedBitmap;
     Uri photoUri;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
@@ -61,8 +62,7 @@ public class HomeFragment extends Fragment {
         button.setOnClickListener(view -> {
             DashboardViewModel dashboardViewModel =
                     new ViewModelProvider(this).get(DashboardViewModel.class);
-            Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
-            dashboardViewModel.addCard(new Card(cardBrent.getText().toString(), resizedBitmap));
+            dashboardViewModel.addCard(new Card(cardBrent.getText().toString(), photoUri.toString()));
         });
         return root;
     }
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
         //Продлолжаем только если файл создался
         if (photoFile != null) {
             Log.d("TAG", photoFile.getAbsolutePath());
-             photoUri = FileProvider.getUriForFile(requireActivity(), "com.example.card20.fileprovider", photoFile);
+            photoUri = FileProvider.getUriForFile(requireActivity(), "com.example.card20.fileprovider", photoFile);
             //Кладем в интент путь до фото
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
             startActivityForResult(takePictureIntent, REQUEST_CAMERA);

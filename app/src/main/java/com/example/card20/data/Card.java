@@ -14,10 +14,10 @@ public class Card {
     private int id;
     private String cardTitle;
     private int cardNumber;
-    private Uri card_front;
+    private String card_front;
 
 
-    public Card(String cardTitle, Uri card_front) {
+    public Card(String cardTitle, String card_front) {
         this.cardTitle = cardTitle;
         this.card_front = card_front;
     }
@@ -34,7 +34,7 @@ public class Card {
         this.cardNumber = cardNumber;
     }
 
-    public void setCard_front(Uri card_front) {
+    public void setCard_front(String card_front) {
         this.card_front = card_front;
     }
 
@@ -50,7 +50,7 @@ public class Card {
         return cardNumber;
     }
 
-    public Uri getCard_front() {
+    public String getCard_front() {
         return card_front;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.card20.adapters;
 
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,7 @@ public class CardAdapter extends ListAdapter<Card, CardAdapter.CardVH> {
     LiveData<List<Card>> listCards;
 
 
-   public interface OnClickCardListener {
+    public interface OnClickCardListener {
         void onClick(Card card, int position);
     }
 
@@ -54,7 +56,7 @@ public class CardAdapter extends ListAdapter<Card, CardAdapter.CardVH> {
     public void onBindViewHolder(@NonNull CardVH holder, int position) {
         Card card = getItem(position);
         holder.cardTitle.setText(card.getCardTitle());
-        holder.cardFrontImage.setImageURI(card.getCard_front());
+        holder.cardFrontImage.setImageURI(Uri.parse(card.getCard_front()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -30,4 +30,7 @@ public class ListCardViewModel extends AndroidViewModel {
     public void addCard(Card card) {
         cardRepository.addCard(card);
     }
+    public void deleteCard(Card card){
+        cardRepository.deleteCard(card);
+    }
 }

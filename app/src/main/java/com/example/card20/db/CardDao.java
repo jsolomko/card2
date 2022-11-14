@@ -2,6 +2,7 @@ package com.example.card20.db;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -17,4 +18,7 @@ public interface CardDao {
 
     @Insert
     void addNewCard(Card card);
+
+    @Delete
+    void deleteCard(Card card);
 }

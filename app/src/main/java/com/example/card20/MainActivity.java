@@ -1,6 +1,8 @@
 package com.example.card20;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -33,4 +35,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    public void edit(View view) {
+        Toast.makeText(getApplicationContext(), "GFSDSDF", Toast.LENGTH_SHORT).show();
+    }
 }

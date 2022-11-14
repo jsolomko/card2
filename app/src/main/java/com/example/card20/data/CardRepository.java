@@ -32,4 +32,13 @@ public class CardRepository {
             }
         });
     }
+
+    public void deleteCard(Card card) {
+        CardDB.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                cardDao.deleteCard(card);
+            }
+        });
+    }
 }

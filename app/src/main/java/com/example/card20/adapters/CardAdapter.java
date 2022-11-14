@@ -48,7 +48,7 @@ public class CardAdapter extends ListAdapter<Card, CardAdapter.CardVH> {
     @NonNull
     @Override
     public CardVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_2, parent, false);
         return new CardVH(v);
     }
 
@@ -57,6 +57,7 @@ public class CardAdapter extends ListAdapter<Card, CardAdapter.CardVH> {
         Card card = getItem(position);
         holder.cardTitle.setText(card.getCardTitle());
         holder.cardFrontImage.setImageURI(Uri.parse(card.getCard_front()));
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

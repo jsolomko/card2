@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,17 +23,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.card20.R;
 import com.example.card20.data.Card;
-import com.example.card20.databinding.FragmentHomeBinding;
-import com.example.card20.ui.dashboard.DashboardViewModel;
+import com.example.card20.databinding.FragmentAddCardBinding;
+import com.example.card20.ui.dashboard.ListCardViewModel;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class HomeFragment extends Fragment {
+public class AddCardFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentAddCardBinding binding;
     String currentPhotoPath;
     private final int REQUEST_CAMERA = 100;
     View root;
@@ -45,8 +44,8 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        AddCardViewModel addCardViewModel = new ViewModelProvider(this).get(AddCardViewModel.class);
+        binding = FragmentAddCardBinding.inflate(inflater, container, false);
         root = binding.getRoot();
 
         cardBrent = root.findViewById(R.id.edCardTitle);
@@ -60,9 +59,9 @@ public class HomeFragment extends Fragment {
 
         Button button = root.findViewById(R.id.openCamera);
         button.setOnClickListener(view -> {
-            DashboardViewModel dashboardViewModel =
-                    new ViewModelProvider(this).get(DashboardViewModel.class);
-            dashboardViewModel.addCard(new Card(cardBrent.getText().toString(), photoUri.toString()));
+            ListCardViewModel listCardViewModel =
+                    new ViewModelProvider(this).get(ListCardViewModel.class);
+            listCardViewModel.addCard(new Card(cardBrent.getText().toString(), photoUri.toString()));
         });
         return root;
     }

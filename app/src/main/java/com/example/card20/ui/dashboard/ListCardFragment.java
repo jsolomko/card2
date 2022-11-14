@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,21 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.card20.R;
 import com.example.card20.adapters.CardAdapter;
 import com.example.card20.data.Card;
-import com.example.card20.databinding.FragmentDashboardBinding;
+import com.example.card20.databinding.FragmentListCardBinding;
 
 import java.util.List;
 
-public class DashboardFragment extends Fragment {
+public class ListCardFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentListCardBinding binding;
     RecyclerView recyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        ListCardViewModel listCardViewModel =
+                new ViewModelProvider(this).get(ListCardViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentListCardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         recyclerView = root.findViewById(R.id.rv_dashboard);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
@@ -43,7 +42,7 @@ public class DashboardFragment extends Fragment {
         };
         CardAdapter cardAdapter = new CardAdapter(new CardAdapter.CardDiff(), onClickCardListener);
         recyclerView.setAdapter(cardAdapter);
-        dashboardViewModel.getListRepo().observe(getViewLifecycleOwner(), new Observer<List<Card>>() {
+        listCardViewModel.getListRepo().observe(getViewLifecycleOwner(), new Observer<List<Card>>() {
             @Override
             public void onChanged(List<Card> cards) {
                 cardAdapter.submitList(cards);

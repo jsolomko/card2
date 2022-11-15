@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,14 +12,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.card20.R;
 import com.example.card20.adapters.CardAdapter;
 import com.example.card20.data.Card;
+import com.example.card20.databinding.FragmentAddCardBinding;
 import com.example.card20.databinding.FragmentListCardBinding;
-import com.example.card20.ui.CustomDialogFragment;
+import com.example.card20.ui.customdialog.CustomDialogFragment;
+import com.example.card20.ui.deletecarddialog.DeleteCardDialogFragment;
 
 import java.util.List;
 
@@ -38,14 +40,29 @@ public class ListCardFragment extends Fragment {
         binding = FragmentListCardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
         recyclerView = root.findViewById(R.id.rv_dashboard);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
         CardAdapter.OnClickBtnListener onClickBtnListener = new CardAdapter.OnClickBtnListener() {
             @Override
             public void onClick(Card card, int position) {
-               listCardViewModel.deleteCard(card);
+//               listCardViewModel.deleteCard(card);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Card.class.getSimpleName(), card);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                DeleteCardDialogFragment newFragment = new DeleteCardDialogFragment();
+
+                newFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                // For a little polish, specify a transition animation
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                // To make it fullscreen, use the 'content' root view as the container
+                // for the fragment, which is always the root view for the activity
+                transaction.add(android.R.id.content, newFragment)
+                        .addToBackStack(null).commit();
+
             }
         };
 
@@ -72,7 +89,6 @@ public class ListCardFragment extends Fragment {
         };
         CardAdapter cardAdapter = new CardAdapter(new CardAdapter.CardDiff(), onClickCardListener, onClickBtnListener);
         recyclerView.setAdapter(cardAdapter);
-
         listCardViewModel.getListRepo().observe(getViewLifecycleOwner(), new Observer<List<Card>>() {
             @Override
             public void onChanged(List<Card> cards) {

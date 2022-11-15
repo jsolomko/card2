@@ -3,23 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_dashboard">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.card20.ui.home.AddCardFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_add_card" />
+        tools:layout="@layout/fragment_add_card" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.card20.ui.dashboard.ListCardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_list_card" />
+        tools:layout="@layout/fragment_list_card" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_customDialogFragment"
+            app:destination="@id/customDialogFragment" />
+        <action
+            android:id="@+id/action_to_add_card"
+            app:destination="@id/navigation_home"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_dashboard"
+            app:popUpToSaveState="true"
+
+         />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.card20.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/customDialogFragment"
+        android:name="com.example.card20.ui.customdialog.CustomDialogFragment"
+        android:label="CustomDialogFragment" />
+    <action android:id="@+id/action_global_navigation_dashboard" app:destination="@id/navigation_dashboard" />
 </navigation>

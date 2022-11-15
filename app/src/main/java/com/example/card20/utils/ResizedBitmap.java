@@ -52,4 +52,6 @@ public class ResizedBitmap {
         return rotatedImg;
 
     }
+
+
 }

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,10 +60,18 @@ public class AddCardFragment extends Fragment {
 
 
         Button button = root.findViewById(R.id.openCamera);
+
         button.setOnClickListener(view -> {
-            ListCardViewModel listCardViewModel =
-                    new ViewModelProvider(this).get(ListCardViewModel.class);
-            listCardViewModel.addCard(new Card(cardBrent.getText().toString(), photoUri.toString()));
+            if (TextUtils.isEmpty(cardBrent.getText())) {
+                Toast.makeText(getContext(), "Заполните название", Toast.LENGTH_SHORT).show();
+            } else {
+                ListCardViewModel listCardViewModel =
+                        new ViewModelProvider(this).get(ListCardViewModel.class);
+                listCardViewModel.addCard(new Card(cardBrent.getText().toString(), photoUri.toString()));
+
+                Toast.makeText(getContext(), "Карта добавлена", Toast.LENGTH_SHORT).show();
+            }
+
         });
         return root;
     }
@@ -125,7 +135,7 @@ public class AddCardFragment extends Fragment {
         bmOptions.inPurgeable = true;
 
         resizedBitmap = BitmapFactory.decodeFile(currentPhotoPath, bmOptions);
-        imageView.setImageURI(photoUri);
+        imageView.setImageBitmap(resizedBitmap);
 
     }
 

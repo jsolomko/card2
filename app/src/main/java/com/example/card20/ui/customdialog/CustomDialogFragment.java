@@ -1,26 +1,19 @@
-package com.example.card20.ui;
+package com.example.card20.ui.customdialog;
 
-import android.app.Dialog;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.card20.R;
 import com.example.card20.data.Card;
-import com.example.card20.utils.ResizedBitmap;
-
-import java.io.FileReader;
 
 public class CustomDialogFragment extends Fragment {
     ImageView imageView;
@@ -33,8 +26,6 @@ public class CustomDialogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout to use as dialog or embedded fragment
-
-
         return inflater.inflate(R.layout.custom_dialog, container, false);
     }
 
@@ -45,6 +36,7 @@ public class CustomDialogFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
+
             Card card = bundle.getParcelable(Card.class.getSimpleName());
 
             imageView = view.findViewById(R.id.imageView2);

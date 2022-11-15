@@ -1,7 +1,12 @@
 package com.example.card20.adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.card20.R;
 import com.example.card20.data.Card;
+import com.example.card20.ui.home.AddCardFragment;
+import com.example.card20.utils.ResizedBitmap;
 
 import java.util.List;
 
@@ -38,7 +45,7 @@ public class CardAdapter extends ListAdapter<Card, CardAdapter.CardVH> {
     private OnClickBtnListener onClickBtnListener;
 
 
-    public CardAdapter(@NonNull DiffUtil.ItemCallback<Card> diffCallback, OnClickCardListener onClickCardListener,OnClickBtnListener onClickBtnListener) {
+    public CardAdapter(@NonNull DiffUtil.ItemCallback<Card> diffCallback, OnClickCardListener onClickCardListener, OnClickBtnListener onClickBtnListener) {
         super(diffCallback);
         this.onClickCardListener = onClickCardListener;
         this.onClickBtnListener = onClickBtnListener;
@@ -68,11 +75,19 @@ public class CardAdapter extends ListAdapter<Card, CardAdapter.CardVH> {
     public void onBindViewHolder(@NonNull CardVH holder, int position) {
         Card card = getItem(position);
         holder.cardTitle.setText(card.getCardTitle());
-        holder.cardFrontImage.setImageURI(Uri.parse(card.getCard_front()));
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                holder.cardFrontImage.setImageResource(R.drawable.icon100x100);
+            }
+        };
+        runnable.run();
+
+
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickBtnListener.onClick(card,holder.getAdapterPosition());
+                onClickBtnListener.onClick(card, holder.getAdapterPosition());
             }
         });
 
